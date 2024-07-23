@@ -16,3 +16,13 @@ class GuideApplication(models.Model):
     class Meta:
         verbose_name = 'Список заявок на роль Гида'
         verbose_name_plural = 'Список заявок на роль Гида'
+
+
+class Guides(models.Model):
+    guide = models.OneToOneField(GuideApplication, on_delete=models.CASCADE)
+
+
+    class Meta:
+        verbose_name = 'Список гидов'
+        verbose_name_plural = 'Список гидов'
+
