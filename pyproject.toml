@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "tourism"
+version = "0.1.0"
+description = "Travel project"
+authors = ["Your Name <you@example.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "^5.0.7"
+djangorestframework = "^3.15.2"
+pillow = "^10.4.0"
+django-allauth = "^0.63.6"
+requests = "^2.32.3"
+pyjwt = "^2.8.0"
+where = "^1.0.2"
+cryptography = "^43.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
