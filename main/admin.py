@@ -1,21 +1,36 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from .models import Tour, About, TourLocation
-from django.contrib.auth.models import User, Group
-
+from .models import Tour, About, TourLocation, Booking
 
 User = get_user_model()
 
 admin.site.unregister(User)
-admin.site.unregister(Group)
+
 @admin.register(TourLocation)
-class TourLocation(admin.ModelAdmin):
-    list_display = ['location']
+class TourLocationAdmin(admin.ModelAdmin):
+    list_display = ['id', 'location']
+    search_fields = ['location']
+
 
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
-    list_display = ['title', 'content']
+    list_display = ['id', 'title', 'content']
+    search_fields = ['title']
+
 
 @admin.register(Tour)
 class TourAdmin(admin.ModelAdmin):
-    list_display = ['title', 'description', 'price', 'guide', 'location']
+    list_display = ['id', 'title', 'description', 'price', 'location', 'guide']
+    list_filter = ['location', 'guide']
+    search_fields = ['title', 'description']
+    fields = ['title', 'description', 'price', 'location', 'guide']
+
+
+@admin.register(Booking)
+class BookingAdmin(admin.ModelAdmin):
+    list_display = ['id', 'user', 'tour', 'num_people', 'booking_date', 'status']
+    list_filter = ['status', 'booking_date']
+    search_fields = ['user__username', 'tour__title']
+    date_hierarchy = 'booking_date'
+    ordering = ['-booking_date']
+    fields = ['user', 'tour', 'num_people', 'status']

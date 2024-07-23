@@ -1,4 +1,4 @@
-from .models import Tour, About, TourLocation
+from .models import Tour, About, TourLocation, Booking
 from rest_framework import serializers
 
 
@@ -19,3 +19,23 @@ class TourSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tour
         fields = '__all__'
+
+
+class BookingSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    tour = TourSerializer(read_only=True)
+
+    class Meta:
+        model = Booking
+        fields = '__all__'
+
+
+class BookingCreateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Booking
+        fields = ['tour', 'num_people']
+
+    def create(self, validated_data):
+        request = self.context.get('request')
+        validated_data['user'] = request.user
+        return super().create(validated_data)

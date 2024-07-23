@@ -39,3 +39,23 @@ class Tour(models.Model):
     class Meta:
         verbose_name = 'Тур'
         verbose_name_plural = 'Туры'
+
+
+class Booking(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+    tour = models.ForeignKey(Tour, on_delete=models.CASCADE, verbose_name='Тур')
+    num_people = models.PositiveIntegerField(verbose_name='Количество людей')
+    booking_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата бронирования')
+    status = models.CharField(
+        max_length=20,
+        choices=[('Pending', 'В ожидании'), ('Confirmed', 'Подтверждено'), ('Cancelled', 'Отменено')],
+        default='Pending',
+        verbose_name='Статус'
+    )
+
+    def __str__(self):
+        return f'{self.user.username} - {self.tour.title}'
+
+    class Meta:
+        verbose_name = 'Бронирование'
+        verbose_name_plural = 'Бронирования'
