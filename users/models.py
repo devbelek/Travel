@@ -1,5 +1,7 @@
 from django.db import models
-from django.db import User
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 class Tour(models.Model):
@@ -11,6 +13,10 @@ class Tour(models.Model):
     def __str__(self):
         return self.title
 
+    class Meta:
+        verbose_name = 'Тур'
+        verbose_name_plural = 'Туры'
+
 
 class GuideApplication(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -21,3 +27,7 @@ class GuideApplication(models.Model):
 
     def __str__(self):
         return f"{self.name} {self.surname}"
+
+    class Meta:
+        verbose_name = 'Список заявок на роль Гида'
+        verbose_name_plural = 'Список заявок на роль Гида'
