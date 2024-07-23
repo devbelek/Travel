@@ -1,10 +1,5 @@
 from rest_framework import serializers
-from .models import GuideApplication, Tour
-
-class TourSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tour
-        fields = ['title', 'description', 'price', 'guide']
+from .models import GuideApplication
 
 class GuideApplicationSerializer(serializers.ModelSerializer):
     class Meta:

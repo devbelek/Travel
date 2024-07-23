@@ -1,14 +1,7 @@
 from rest_framework import generics, viewsets
-from .models import Tour, GuideApplication
-from .serializers import TourSerializer, GuideApplicationSerializer
-from .permissions import IsGuide
+from .models import GuideApplication
+from .serializers import GuideApplicationSerializer
 from rest_framework.permissions import IsAuthenticated
-
-
-class TourCreateView(generics.CreateAPIView):
-    queryset = Tour.objects.all()
-    serializer_class = TourSerializer
-    permission_classes = [IsGuide]
 
 
 class GuideApplicationViewSet(viewsets.ModelViewSet):
