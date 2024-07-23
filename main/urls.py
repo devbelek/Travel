@@ -1,11 +1,11 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .views import TourCreateView
+from .views import AboutViewSet, TourViewSet
 
-# router = DefaultRouter()
-# router.register(r'guide_registration', GuideApplicationViewSet)
+router = DefaultRouter()
+router.register(r'about', AboutViewSet)
+router.register(r'tours', TourViewSet)
 
 urlpatterns = [
-    # path('', include(router.urls)),
-    path('tours/', TourCreateView.as_view(), name='tour-create'),
+    path('', include(router.urls)),
 ]

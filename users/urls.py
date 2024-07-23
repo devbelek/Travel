@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 from .views import GuideApplicationViewSet
 
 router = DefaultRouter()
-router.register(r'guide_registration', GuideApplicationViewSet)
+router.register(r'new_guide', GuideApplicationViewSet)
 
 urlpatterns = [
     path('', include(router.urls)),
