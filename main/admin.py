@@ -28,9 +28,10 @@ class TourAdmin(admin.ModelAdmin):
 
 @admin.register(Booking)
 class BookingAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'tour', 'num_people', 'booking_date', 'status']
+    list_display = ['id', 'user', 'tour', 'phone_num', 'booking_date', 'status']
     list_filter = ['status', 'booking_date']
     search_fields = ['user__username', 'tour__title']
     date_hierarchy = 'booking_date'
     ordering = ['-booking_date']
-    fields = ['user', 'tour', 'num_people', 'status']
+    fields = ['user', 'tour', 'phone_num', 'status']
+    readonly_fields = ['phone_num', 'tour', 'user']

@@ -33,7 +33,7 @@ class BookingSerializer(serializers.ModelSerializer):
 class BookingCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Booking
-        fields = ['tour', 'num_people']
+        fields = ['tour', 'phone_num']
 
     def create(self, validated_data):
         request = self.context.get('request')
