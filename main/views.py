@@ -1,22 +1,13 @@
-from rest_framework import generics, viewsets
-from .models import Tour, About, TourLocation, Booking
-from .serializers import TourSerializer, AboutSerializer, TourLocationSerializer, BookingCreateSerializer, \
-    BookingSerializer
-from .permissions import IsAdminOrGuide
+from rest_framework import viewsets, generics, permissions
+from .models import Tour, TourLocation, Comment
+from .serializers import TourSerializer, TourLocationSerializer, CommentSerializer
+from .permissions import IsAdminOrGuide, IsOwnerOrReadOnly
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticated
-
-
-class AboutViewSet(viewsets.ModelViewSet):
-    queryset = About.objects.all()
-    serializer_class = AboutSerializer
-    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
-
 
 class TourViewSet(viewsets.ModelViewSet):
     queryset = Tour.objects.all()
     serializer_class = TourSerializer
     permission_classes = [IsAdminOrGuide]
-
 
 class TourLocationViewSet(viewsets.ModelViewSet):
     queryset = TourLocation.objects.all()
@@ -24,19 +15,22 @@ class TourLocationViewSet(viewsets.ModelViewSet):
     permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
 
 
-class BookingViewSet(viewsets.ModelViewSet):
-    queryset = Booking.objects.all()
-    permission_classes = [IsAuthenticated]
-
-    def get_serializer_class(self):
-        if self.action == 'create':
-            return BookingCreateSerializer
-        return BookingSerializer
+class CommentListCreateView(generics.ListCreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
 
-    def get_queryset(self):
-        if self.request.user.is_staff:
-            return Booking.objects.all()
-        return Booking.objects.filter(user=self.request.user)
+class CommentDetailView(generics.RetrieveDestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        return obj.user == request.user
+

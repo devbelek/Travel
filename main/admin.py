@@ -1,37 +1,37 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from .models import Tour, About, TourLocation, Booking
+from .models import Tour, TourLocation, TourDescription, TourItinerary, PlaceToLive, Comment
 
 User = get_user_model()
-
 admin.site.unregister(User)
+
+@admin.register(TourDescription)
+class TourDescriptionAdmin(admin.ModelAdmin):
+    list_display = ['id', 'people', 'activityLevel', 'comfortLevel', 'languages', 'journey']
+
+@admin.register(TourItinerary)
+class TourItineraryAdmin(admin.ModelAdmin):
+    list_display = ['id', 'description', 'images']
+
+@admin.register(PlaceToLive)
+class PlaceToLiveAdmin(admin.ModelAdmin):
+    pass
 
 @admin.register(TourLocation)
 class TourLocationAdmin(admin.ModelAdmin):
-    list_display = ['id', 'location']
-    search_fields = ['location']
-
-
-@admin.register(About)
-class AboutAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'content']
-    search_fields = ['title']
-
+    list_display = ['id', 'name', 'title', 'content', 'image']
+    search_fields = ['name']
 
 @admin.register(Tour)
 class TourAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'description', 'price', 'location', 'guide']
+    list_display = ['id', 'title', 'images', 'included', 'not_included', 'price', 'location', 'guide', 'description', 'itinerary', 'place_to_live']
     list_filter = ['location', 'guide']
     search_fields = ['title', 'description']
-    fields = ['title', 'description', 'price', 'location', 'guide']
+    fields = ['title', 'images', 'included', 'not_included', 'price', 'location', 'guide', 'description', 'itinerary', 'place_to_live']
 
-
-@admin.register(Booking)
-class BookingAdmin(admin.ModelAdmin):
-    list_display = ['id', 'user', 'tour', 'phone_num', 'booking_date', 'status']
-    list_filter = ['status', 'booking_date']
-    search_fields = ['user__username', 'tour__title']
-    date_hierarchy = 'booking_date'
-    ordering = ['-booking_date']
-    fields = ['user', 'tour', 'phone_num', 'status']
-    readonly_fields = ['phone_num', 'tour', 'user']
+@admin.register(Comment)
+class CommentAdmin(admin.ModelAdmin):
+    list_display = ['id', 'tour', 'user', 'text', 'created_at']
+    list_filter = ['created_at', 'tour']
+    search_fields = ['text', 'user__username', 'tour__title']
+    readonly_fields = ['created_at']
