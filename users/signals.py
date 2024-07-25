@@ -6,6 +6,10 @@ from .models import UserProfile
 
 User = get_user_model()
 
+for user in User.objects.all():
+    if not hasattr(user, 'userprofile'):
+        UserProfile.objects.create(user=user)
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
