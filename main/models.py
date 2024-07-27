@@ -24,7 +24,7 @@ class Tour(models.Model):
     images = models.FileField(upload_to='tours_images/')
     included = models.CharField(max_length=200)
     not_included = models.CharField(max_length=200)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
+    price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     location = models.ForeignKey(TourLocation, on_delete=models.CASCADE)
     guide = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.OneToOneField('TourDescription', on_delete=models.CASCADE, null=True, blank=True)

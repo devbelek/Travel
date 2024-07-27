@@ -4,14 +4,14 @@ from .models import Tour, TourLocation, Comment
 class TourLocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = TourLocation
-        exclude = ['id']
+        fields = '__all__'
 
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
 
     class Meta:
         model = Comment
-        fields = ['id', 'user', 'text', 'created_at']
+        fields = '__all__'
 
 class TourSerializer(serializers.ModelSerializer):
     location = serializers.PrimaryKeyRelatedField(queryset=TourLocation.objects.all())
