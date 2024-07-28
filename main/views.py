@@ -1,6 +1,7 @@
 from rest_framework import viewsets, generics, permissions
-from .models import Tour, TourLocation, Comment
-from .serializers import TourSerializer, TourLocationSerializer, CommentSerializer
+from .models import Tour, TourLocation, Comment, TourDescription, TourItinerary, PlaceToLive
+from .serializers import TourSerializer, TourLocationSerializer, CommentSerializer, TourDescriptionSerializer, \
+    TourItinerarySerializer, PlaceToLiveSerializer
 from .permissions import IsAdminOrGuide, IsOwnerOrReadOnly
 from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticated
 
@@ -34,3 +35,20 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
             return True
         return obj.user == request.user
 
+
+class TourDescriptionViewSet(viewsets.ModelViewSet):
+    queryset = TourDescription.objects.all()
+    serializer_class = TourDescriptionSerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+
+
+class TourItineraryViewSet(viewsets.ModelViewSet):
+    queryset = TourItinerary.objects.all()
+    serializer_class = TourItinerarySerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
+
+
+class PlaceToLiveViewSet(viewsets.ModelViewSet):
+    queryset = PlaceToLive.objects.all()
+    serializer_class = PlaceToLiveSerializer
+    permission_classes = [DjangoModelPermissionsOrAnonReadOnly]
