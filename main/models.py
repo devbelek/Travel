@@ -5,11 +5,23 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 
-class TourLocation(models.Model):
-    name = models.CharField(max_length=20)
+class TourSteps(models.Model):
     title = models.CharField(max_length=200)
     content = models.TextField()
+    image = models.FileField(upload_to='StepsImages/')
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = 'Шаги'
+        verbose_name_plural = 'Шаги'
+
+
+class TourLocation(models.Model):
+    name = models.CharField(max_length=100, unique=True)
     image = models.FileField(upload_to='LocationImages/')
+    content = models.CharField(max_length=200)
 
     def __str__(self):
         return self.name
@@ -19,6 +31,7 @@ class TourLocation(models.Model):
         verbose_name_plural = 'Локации'
 
 
+
 class Tour(models.Model):
     title = models.CharField(max_length=255)
     images = models.FileField(upload_to='tours_images/')
@@ -26,6 +39,7 @@ class Tour(models.Model):
     not_included = models.CharField(max_length=200)
     price = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     location = models.ForeignKey(TourLocation, on_delete=models.CASCADE)
+    steps = models.ForeignKey(TourSteps, on_delete=models.CASCADE)
     guide = models.ForeignKey(User, on_delete=models.CASCADE)
     description = models.OneToOneField('TourDescription', on_delete=models.CASCADE, null=True, blank=True)
     itinerary = models.OneToOneField('TourItinerary', on_delete=models.CASCADE, null=True, blank=True)

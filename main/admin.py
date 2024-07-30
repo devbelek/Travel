@@ -1,9 +1,10 @@
 from django.contrib import admin
 from django.contrib.auth import get_user_model
-from .models import Tour, TourLocation, TourDescription, TourItinerary, PlaceToLive, Comment
+from .models import Tour, TourLocation, TourDescription, TourItinerary, PlaceToLive, Comment, TourSteps
 
 User = get_user_model()
 admin.site.unregister(User)
+admin.site.register(TourLocation)
 
 @admin.register(TourDescription)
 class TourDescriptionAdmin(admin.ModelAdmin):
@@ -17,17 +18,19 @@ class TourItineraryAdmin(admin.ModelAdmin):
 class PlaceToLiveAdmin(admin.ModelAdmin):
     pass
 
-@admin.register(TourLocation)
+@admin.register(TourSteps)
 class TourLocationAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'title', 'content', 'image']
-    search_fields = ['name']
+    list_display = ['id', 'title', 'content', 'image']
+    search_fields = ['title']
+
 
 @admin.register(Tour)
 class TourAdmin(admin.ModelAdmin):
-    list_display = ['id', 'title', 'images', 'included', 'not_included', 'price', 'location', 'guide', 'description', 'itinerary', 'place_to_live']
-    list_filter = ['location', 'guide']
+    list_display = ['id', 'title', 'images', 'included', 'not_included', 'price', 'location', 'steps', 'guide', 'description', 'itinerary', 'place_to_live']
+    list_filter = ['steps', 'guide']
     search_fields = ['title', 'description']
-    fields = ['title', 'images', 'included', 'not_included', 'price', 'location', 'guide', 'description', 'itinerary', 'place_to_live']
+    fields = ['title', 'images', 'included', 'not_included', 'price', 'location', 'steps', 'guide', 'description', 'itinerary', 'place_to_live']
+
 
 @admin.register(Comment)
 class CommentAdmin(admin.ModelAdmin):

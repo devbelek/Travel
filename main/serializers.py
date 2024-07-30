@@ -9,6 +9,18 @@ class TourDescriptionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class TourStepSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TourDescription
+        fields = '__all__'
+
+
+class TourLocationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TourLocation
+        fields = '__all__'
+
+
 class TourItinerarySerializer(serializers.ModelSerializer):
     class Meta:
         model = TourItinerary
