@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Tour, TourLocation, Comment, TourDescription, TourItinerary, PlaceToLive
+from .models import Tour, TourLocation, Comment, TourDescription, TourItinerary, PlaceToLive, TourSteps
 from users.serializers import GuidesSerializer
 
 
@@ -11,7 +11,7 @@ class TourDescriptionSerializer(serializers.ModelSerializer):
 
 class TourStepSerializer(serializers.ModelSerializer):
     class Meta:
-        model = TourDescription
+        model = TourSteps
         fields = '__all__'
 
 
@@ -33,12 +33,6 @@ class PlaceToLiveSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class TourLocationSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = TourLocation
-        fields = '__all__'
-
-
 class CommentSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.username')
 
@@ -50,6 +44,7 @@ class CommentSerializer(serializers.ModelSerializer):
 class TourSerializer(serializers.ModelSerializer):
     location = TourLocationSerializer()
     guide = GuidesSerializer()
+    steps = TourStepSerializer()
     description = TourDescriptionSerializer()
     itinerary = TourItinerarySerializer()
     place_to_live = PlaceToLiveSerializer()

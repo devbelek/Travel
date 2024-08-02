@@ -27,4 +27,7 @@ class GuidesSerializer(serializers.ModelSerializer):
         fields = ['id', 'full_name']
 
     def get_full_name(self, obj):
-        return f"{obj.guideapplication.name} {obj.guideapplication.surname}"
+        if hasattr(obj, 'guideapplication'):
+            guide_app = obj.guideapplication
+            return f"{guide_app.name} {guide_app.surname}"
+        return f"{obj.first_name} {obj.last_name}"
