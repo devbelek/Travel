@@ -144,25 +144,26 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGIN_REGEXES = [
     r"^http://localhost:5173$",
+    r"^https://travel-t7k4.onrender.com$",
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
-    'DELETE',
     'GET',
-    'OPTIONS',
-    'PATCH',
     'POST',
     'PUT',
+    'PATCH',
+    'DELETE',
+    'OPTIONS',
 ]
 CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
+    'cookie',
     'x-csrftoken',
+    'content-type',
+    'accept',
+    'origin',
+    'authorization',
     'x-requested-with',
+    'access-control-request-headers',
+    'access-control-request-method',
 ]
 CSRF_TRUSTED_ORIGINS = ['https://travel-t7k4.onrender.com']
