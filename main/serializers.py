@@ -12,7 +12,7 @@ class TourDescriptionSerializer(serializers.ModelSerializer):
 class TourLocationSerializer(serializers.ModelSerializer):
     class Meta:
         model = TourLocation
-        fields = '__all__'
+        fields = ['id', 'name', 'image', 'content']
 
 
 class CommentSerializer(serializers.ModelSerializer):
