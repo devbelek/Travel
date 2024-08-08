@@ -12,7 +12,7 @@ class TourViewSet(viewsets.ModelViewSet):
 
 
 class TourLocationViewSet(viewsets.ModelViewSet):
-    queryset = Tour.objects.all()
+    queryset = TourLocation.objects.all()
     serializer_class = TourLocationSerializer
     permission_classes = [IsAdminOrGuide]
 
