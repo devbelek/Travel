@@ -143,8 +143,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^http://localhost:5173$",
-    r"^https://travel-t7k4.onrender.com$",
+    'http://localhost:5173',
+    'https://travel-t7k4.onrender.com',
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
@@ -170,3 +170,9 @@ CSRF_TRUSTED_ORIGINS = [
     'https://travel-t7k4.onrender.com',
     'http://localhost:5173'
 ]
+
+CORS_TRUSTED_ORIGINS = [
+    'https://travel-t7k4.onrender.com',
+    'http://localhost:5173'
+]
+
