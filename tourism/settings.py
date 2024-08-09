@@ -166,4 +166,7 @@ CORS_ALLOW_HEADERS = [
     'access-control-request-headers',
     'access-control-request-method',
 ]
-CSRF_TRUSTED_ORIGINS = ['https://travel-t7k4.onrender.com']
+CSRF_TRUSTED_ORIGINS = [
+    'https://travel-t7k4.onrender.com',
+    'http://localhost:5173'
+]

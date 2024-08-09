@@ -1,8 +1,8 @@
 from rest_framework import viewsets, generics, permissions
-from .models import Tour, TourLocation, Comment, TourDescription, PlaceToLive
-from .serializers import TourSerializer, TourLocationSerializer, CommentSerializer, TourDescriptionSerializer, TourLocationSerializer
+from .models import Tour, TourLocation, Comment, TourDescription
+from .serializers import TourSerializer, TourLocationSerializer, CommentSerializer, TourDescriptionSerializer
 from .permissions import IsAdminOrGuide, IsOwnerOrReadOnly
-from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly, IsAuthenticated
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 
 
 class TourViewSet(viewsets.ModelViewSet):
