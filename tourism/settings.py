@@ -145,6 +145,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOWED_ORIGIN_REGEXES = [
     'http://localhost:5173',
     'https://travel-t7k4.onrender.com',
+    'http://127.0.0.1:5173',
 ]
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_METHODS = [
@@ -169,10 +170,12 @@ CORS_ALLOW_HEADERS = [
 CSRF_TRUSTED_ORIGINS = [
     'https://travel-t7k4.onrender.com',
     'http://localhost:5173'
+    'http://127.0.0.1:5173',
 ]
 
 CORS_TRUSTED_ORIGINS = [
     'https://travel-t7k4.onrender.com',
-    'http://localhost:5173'
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
 ]
 
