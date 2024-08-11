@@ -1,8 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 User = get_user_model()
-
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -23,7 +24,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-
 class GuideApplication(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=35)
@@ -42,8 +42,6 @@ class GuideApplication(models.Model):
 class Guides(models.Model):
     guide = models.OneToOneField(GuideApplication, on_delete=models.CASCADE)
 
-
     class Meta:
         verbose_name = 'Список гидов'
         verbose_name_plural = 'Список гидов'
-

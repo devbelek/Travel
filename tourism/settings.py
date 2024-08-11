@@ -1,15 +1,15 @@
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
+
+load_dotenv()
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = 'django-insecure-gngts2n#@&sbw1a)m!g6a24tk#0r3&^@_qhmaj%h9v1+l-1=^5'
+SECRET_KEY = os.getenv('SECRET_KEY')
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'allauth',
@@ -61,20 +61,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'tourism.wsgi.application'
 
-
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -103,6 +95,13 @@ AUTHENTICATION_BACKENDS = [
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
+}
+
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         "SCOPE": [
@@ -113,26 +112,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-ACCOUNT_EMAIL_REQUIRED = True
-ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-ACCOUNT_RATE_LIMITS = {
-    'login_failed': '5/5m',
-    'login': '20/1h',
-    'signup': '5/5m',
-}
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'nurdaawah@gmail.com'
-EMAIL_HOST_PASSWORD = 'bcnx vaum cowe lryw'
-
-ADMINS = [
-    ('admin', 'belekasrarov10@gmail.com'),
-]
-
-MANAGERS = ADMINS
+ACCOUNT_EMAIL_REQUIRED = False  # Email не обязателен
+ACCOUNT_EMAIL_VERIFICATION = 'none'  # Отключение верификации email
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
@@ -142,12 +123,11 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    'http://localhost:5173',
-    'https://travel-t7k4.onrender.com',
-    'http://127.0.0.1:5173',
-]
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
+]
 CORS_ALLOW_METHODS = [
     'GET',
     'POST',
@@ -169,13 +149,31 @@ CORS_ALLOW_HEADERS = [
 ]
 CSRF_TRUSTED_ORIGINS = [
     'https://travel-t7k4.onrender.com',
-    'http://localhost:5173'
-    'http://127.0.0.1:5173',
-]
-
-CORS_TRUSTED_ORIGINS = [
-    'https://travel-t7k4.onrender.com',
     'http://localhost:5173',
     'http://127.0.0.1:5173',
 ]
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+    'https://travel-t7k4.onrender.com',
+]
 
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = True
+
+# Отключение SSL/TLS настроек для разработки
+SECURE_SSL_REDIRECT = False
+SESSION_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = False
+SECURE_HSTS_SECONDS = 0
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_HSTS_PRELOAD = False
+
+LOGIN_REDIRECT_URL = 'auth/login_user'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_SIGNUP_REDIRECT_URL = 'auth/login_user'
+
+CSRF_COOKIE_HTTPONLY = False
+CSRF_USE_SESSIONS = False

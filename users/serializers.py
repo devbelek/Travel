@@ -9,15 +9,13 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = '__all__'
 
-
 class GuideApplicationSerializer(serializers.ModelSerializer):
-    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all())
+    user = serializers.PrimaryKeyRelatedField(queryset=User.objects.all(), required=True)
     user_profile = UserProfileSerializer(source='user.userprofile', read_only=True)
 
     class Meta:
         model = GuideApplication
         fields = ['id', 'user', 'user_profile', 'name', 'surname', 'resume', 'is_approved']
-
 
 class GuidesSerializer(serializers.ModelSerializer):
     full_name = serializers.SerializerMethodField()

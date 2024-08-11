@@ -3,7 +3,6 @@ from django.contrib.auth import get_user_model
 from .models import Tour, TourLocation, TourDescription, Comment
 
 User = get_user_model()
-admin.site.unregister(User)
 admin.site.register(TourLocation)
 
 
